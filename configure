@@ -1,0 +1,9 @@
+# hand written
+cp Makefile.init Makefile
+
+# check if gnuplot exists
+if ! [ -x "$(command -v gnuplot)" ]; then
+  echo 'Error: gnuplot is not installed.' >&2
+  echo 'See README file to install gnuplot.'
+  exit 1
+fi

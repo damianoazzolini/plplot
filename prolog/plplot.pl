@@ -1,3 +1,5 @@
-:- module(plplot,[plot_test/3]).
+:- module(plplot,[
+    plot_point/3
+    ]).
 
-:- use_foreign_library(foreign(plplot),install).
+:-use_foreign_library(foreign(plplot),install).
