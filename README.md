@@ -28,7 +28,7 @@ Example (STILL TO DO)
     ?- plot_point('Title',[1.0, 2.0, 3.0, 4.0, 5.0],[5.0 ,3.0, 1.0, 3.0, 5.0]).
 
 The result should be something like:
-![Screenshot](https://github.com/damianoazzolini/plplot/tree/master/img/sample_plot.png)
+![Screenshot](https://github.com/damianoazzolini/plplot/blob/master/img/sample_plot.PNG)
 
 How it works
 ----
