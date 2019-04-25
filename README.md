@@ -54,7 +54,7 @@ test_p:-
 ```
 * To test use: 
 ```
-    $ swipl
+    $ swipl test.pl
 
     ?- test_p.
 ```

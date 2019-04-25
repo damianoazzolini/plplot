@@ -1,23 +1,14 @@
 SHELL := /bin/bash
 CC=gcc
 
-CFLAGSPLPLOT= $(CFLAGS) -fPIC -DBP_FREE -O3 -fomit-frame-pointer -Wall -g -O2 -Wextra ${INCDIRS}
+CFLAGSPLPLOT= $(CFLAGS) -fPIC -Wall -g -O2 -Wextra ${INCDIRS}
 
-all: plplot.$(SOEXT)
-
-plplot.$(SOEXT): plplot.o
-	if test $(SWIARCH) == x64-win64 -o $(SWIARCH) == i386-win32 ; then \
-  		$(CC) plplot.o -static-libgcc -static-libstdc++  $(LDFLAGS) -lswipl -o plplot.$(SOEXT) ;\
-   	else  \
-     	if  [ $(SWIARCH) ==  *darwin* ]  ;  then \
-  			$(CC) plplot.o  $(LDFLAGS) -lswipl -o plplot.$(SOEXT) ;\
-  		else  \
-  			$(CC) -export-dynamic plplot.o  $(LDFLAGS) -o plplot.$(SOEXT) ;\
-  		fi \
-  fi
+all : plplot.so
 
 plplot.o : plplot.c
 	$(CC) -c $(CFLAGSPLPLOT) plplot.c -o plplot.o
+plplot.so : plplot.o
+	gcc -shared -o plplot.so plplot.o
 
 distclean: clean
 	rm Makefile
@@ -29,8 +20,8 @@ check:
 	@echo "not available"
 
 install: all
-	mkdir -p $(LIBDIR)
-	cp plplot.$(SOEXT) $(LIBDIR)
+	mkdir -p $(PACKSODIR)
+	cp plplot.$(SOEXT) $(PACKSODIR)
 
 installcheck:
 	swipl -g test -t halt prolog/plplot_test.pl

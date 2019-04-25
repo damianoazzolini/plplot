@@ -64,11 +64,9 @@ int write_data_to_file(term_t list_x_vals, term_t list_y_vals, int len, int *l_x
 }
 
 static foreign_t plot_point(term_t title, term_t ref_x, term_t ref_y) {
-    int i,lower_x = INT_MAX,lower_y = INT_MAX,upper_x = INT_MIN,upper_y = INT_MIN;
+    int lower_x = INT_MAX,lower_y = INT_MAX,upper_x = INT_MIN,upper_y = INT_MIN;
     char *title_plot;
-    double current_value;
     term_t len_x, len_y, list_x_vals, list_y_vals;
-    term_t val = PL_new_term_ref();
     FILE *mycommands;
     
     list_x_vals = PL_copy_term_ref(ref_x);
@@ -101,7 +99,9 @@ static foreign_t plot_point(term_t title, term_t ref_x, term_t ref_y) {
     fprintf(mycommands,"plot'%s'\n","data.temp");
     fclose(mycommands);
 
-    system("gnuplot -p  <commands.txt");
+    if(system("gnuplot -p  <commands.txt") < 0) {
+        return PL_warning("unable to open shell.");
+    }
     PL_succeed;
 }
 
