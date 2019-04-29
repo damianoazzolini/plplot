@@ -11,5 +11,7 @@ test_plplot:-
 
 test(plot_point):-
   plot_point('Title',[1.0, 2.0, 3.0, 4.0, 5.0],[5.0 ,3.0, 1.0, 3.0, 5.0]).
+test(plot_lines):-
+  plot_lines('Title',[1.0, 2.0, 3.0, 4.0, 5.0],[5.0 ,3.0, 1.0, 3.0, 5.0]).
 
 :- end_tests(basic).
