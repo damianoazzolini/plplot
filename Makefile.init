@@ -7,8 +7,17 @@ all : plplot.so
 
 plplot.o : plplot.c
 	$(CC) -c $(CFLAGSPLPLOT) plplot.c -o plplot.o
-plplot.so : plplot.o
-	gcc -shared -o plplot.so plplot.o
+plplot.$(SOEXT) : plplot.o
+	if test $(SWIARCH) == x64-win64 -o $(SWIARCH) == i386-win32 ; then \
+  		$(CC) plplot.o -static-libgcc -static-libstdc++ -shared -lswipl -o plplot.$(SOEXT) ;\
+   	else  \
+     	if [[ $(SWIARCH) ==  *darwin* ]] ;  then \
+  			$(CC) plplot.o -shared -lswipl -o plplot.$(SOEXT) ;\
+  		else  \
+  			$(CC) -export-dynamic plplot.o -shared -o plplot.$(SOEXT) ;\
+  		fi \
+  	fi
+	# gcc -shared -o plplot.so plplot.o
 
 distclean: clean
 	rm Makefile

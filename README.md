@@ -12,7 +12,7 @@ You can download it from http://www.gnuplot.info/download.html and then follow t
 
 Usually you need other libraries to install gnuplot as `libwxgtk3.0-dev` `libpango1.0-dev` and `libreadline5-dev`.
 
-Installation (STILL TO DO)
+Installation
 ----
 plplot can be installed using `pack_install/1`
 
@@ -21,7 +21,7 @@ plplot can be installed using `pack_install/1`
 
 Still does not work on Windows
 
-Example (STILL TO DO)
+Example
 -----
     $ swipl
     ?- use_module(library(plplot)).
@@ -30,13 +30,18 @@ Example (STILL TO DO)
 The result should be something like:
 ![Screenshot](https://github.com/damianoazzolini/plplot/blob/master/img/sample_plot.PNG)
 
+Available Predicates
+-----
+* `plot_point/3`: plots the points.
+* `plot_line/3`: plots the points and connect them with lines.
+
 How it works
 ----
 It's simple: the commands are saved in a file named `commands.txt`. 
 The data are saved in a file named `data.temp`.
 Then *gnuplot* is called passing those two files.
 
-How to test without using `pack_install/1` (THE ONLY METHOD NOW)
+How to test without using `pack_install/1`
 ---
 To use the program without downloading the package with `pack_install/1` you can do:
 * Find the file `<SWI-Prolog.h>`. Usually is `/usr/local/lib/swipl/include/` or `/usr/lib/swi-prolog/include/`.

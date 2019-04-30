@@ -11,8 +11,8 @@
 #define OFFSET 1
 
 static foreign_t plot_point(term_t title, term_t list_x_vals, term_t list_y_vals);
-static foreign_t plot_lines(term_t title, term_t list_x_vals, term_t list_y_vals);
-// static foreign_t plot_histogram(term_t title, term_t list_x_vals, term_t list_y_vals);
+static foreign_t plot_line(term_t title, term_t list_x_vals, term_t list_y_vals);
+
 int write_data_to_file(term_t list_x_vals, term_t list_y_vals, int len, int *l_x, int *u_x, int *l_y, int *u_y);
 
 int write_data_to_file(term_t list_x_vals, term_t list_y_vals, int len, int *l_x, int *u_x, int *l_y, int *u_y) {
@@ -106,7 +106,7 @@ static foreign_t plot_point(term_t title, term_t ref_x, term_t ref_y) {
     PL_succeed;
 }
 
-static foreign_t plot_lines(term_t title, term_t ref_x, term_t ref_y) {
+static foreign_t plot_line(term_t title, term_t ref_x, term_t ref_y) {
     int lower_x = INT_MAX,lower_y = INT_MAX,upper_x = INT_MIN,upper_y = INT_MIN;
     char *title_plot;
     term_t len_x, len_y, list_x_vals, list_y_vals;
@@ -139,8 +139,7 @@ static foreign_t plot_lines(term_t title, term_t ref_x, term_t ref_y) {
     fprintf(mycommands,"set title \" %s \" font \",20\"\n",title_plot);
     fprintf(mycommands,"set xrange [%d:%d]\n",lower_x-OFFSET,upper_x+OFFSET);
     fprintf(mycommands, "set yrange [%d:%d]\n",lower_y-OFFSET,upper_y+OFFSET);
-    fprintf(mycommands,"plot'%s'\n","data.temp");
-    fprintf(mycommands,"using 1:2 with linespoints\n");
+    fprintf(mycommands,"plot'%s' using 1:2 with linespoints\n","data.temp");
     fclose(mycommands);
 
     if(system("gnuplot -p  <commands.txt") < 0) {
@@ -151,6 +150,5 @@ static foreign_t plot_lines(term_t title, term_t ref_x, term_t ref_y) {
 
 install_t install() {
     PL_register_foreign("plot_point",3,plot_point,0);
-    PL_register_foreign("plot_lines",3,plot_lines,0);
-    // PL_register_foreign("plot_histogram",3,plot_histogram,0);
+    PL_register_foreign("plot_line",3,plot_line,0);
 }
