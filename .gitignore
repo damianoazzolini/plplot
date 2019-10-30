@@ -5,6 +5,7 @@
 *.temp
 *.txt
 *.sh
+test.pl
 
 
 ### C ###
