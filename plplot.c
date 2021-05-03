@@ -172,7 +172,7 @@ static foreign_t plot_point_new(term_t title, term_t list_in) {
         return PL_warning("plot_test/3: instantiation fault title.\nAre you using \" instead of \' ?");
     }
 
-    printf("Len list: %d\n",len_list);
+    // printf("Len list: %d\n",len_list);
 
     mycommands = fopen("commands.txt","wt");
     fprintf(mycommands,"set title \" %s \" font \",20\"\n",title_plot);
